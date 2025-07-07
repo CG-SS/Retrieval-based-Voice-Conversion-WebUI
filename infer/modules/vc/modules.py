@@ -1,6 +1,8 @@
 import traceback
 import logging
 
+import fairseq
+
 logger = logging.getLogger(__name__)
 
 import numpy as np
@@ -169,6 +171,7 @@ class VC:
             times = [0, 0, 0]
 
             if self.hubert_model is None:
+                torch.serialization.add_safe_globals([fairseq.data.dictionary.Dictionary])
                 self.hubert_model = load_hubert(self.config)
 
             if file_index:
